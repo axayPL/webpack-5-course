@@ -22,6 +22,13 @@ module.exports = {
             {
                 test: /\.txt/,
                 type: 'asset/source' // Be placed directly in your code.
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader', 
+                    'css-loader'
+                ]
             }
         ]
     }
