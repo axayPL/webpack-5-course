@@ -1,7 +1,10 @@
+$color: white;
+
+
 .btn_hello_world {
     padding: 5px 15px;
     background-color: black;
-    color: white;
+    color: $color;
 }
 .text_hello_world {
     font-size: 12px;
