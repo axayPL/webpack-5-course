@@ -1,0 +1,9 @@
+node_modules
+dist
+.tmp
+.idea
+/bin/
+.sass-cache
+dist/*
+docs
+coverage/*
