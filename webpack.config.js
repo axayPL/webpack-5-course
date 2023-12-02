@@ -47,6 +47,12 @@ module.exports = {
           },
         },
       },
+      {
+        test: /\.hbs$/,
+        use: [
+            'handlebars-loader'
+        ]
+      }
     ],
   },
   plugins: [
@@ -54,7 +60,10 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "styles.[contenthash].css",
     }),
-    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin({
+        title: 'Webpack',
+        template: 'src/index.hbs'
+    }),
     // new CleanWebpackPlugin({
     //   cleanOnceBeforeBuildPatterns: [
     //     '**/*',
