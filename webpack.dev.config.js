@@ -17,6 +17,7 @@ module.exports = {
     },
     devMiddleware: {
       index: 'index.html',
+      writeToDisk: true
     }
   },
   module: {
