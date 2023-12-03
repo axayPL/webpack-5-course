@@ -7,7 +7,7 @@ export default class HelloWorldButon {
     const button = document.createElement("button");
     button.innerHTML = "Hello world!";
     button.classList.add(this.buttonCssClass);
-    button.addEventListener("click", () => {
+    button.addEventListener("click", async () => {
       const p = document.createElement("p");
       p.innerHTML = "Hello World";
       p.classList.add(this.pCssClass);

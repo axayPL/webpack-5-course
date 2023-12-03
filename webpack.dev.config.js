@@ -1,24 +1,28 @@
 const path = require("path");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: {
+    "hello-world-page": "./src/hello-world-page.js",
+    "image-page": "./src/image-page.js",
+  },
   output: {
-    filename: "bundle.js",
+    filename: "[name].js",
     path: path.resolve(__dirname, "./dist"),
     publicPath: "",
-    clean: true
+    clean: true,
   },
-  mode: "none",
+  mode: "development",
   devServer: {
     port: 9000,
     static: {
       directory: path.resolve(__dirname, "./dist"),
     },
     devMiddleware: {
-      index: 'index.html',
-      writeToDisk: true
-    }
+      writeToDisk: true,
+    },
   },
   module: {
     rules: [
@@ -56,16 +60,29 @@ module.exports = {
       },
       {
         test: /\.hbs$/,
-        use: [
-            'handlebars-loader'
-        ]
-      }
+        use: ["handlebars-loader"],
+      },
     ],
   },
   plugins: [
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: [
+        '**/*'
+      ]
+    }),
     new HtmlWebpackPlugin({
-        title: 'Webpack',
-        template: 'src/index.hbs'
+      filename: "hello-world-page.html",
+      chunks: ["hello-world-page"],
+      title: "Hello World!",
+      template: "src/page-template.hbs",
+      minify: false,
+    }),
+    new HtmlWebpackPlugin({
+      filename: "image-page.html",
+      chunks: ["image-page"],
+      title: "Image Page",
+      template: "src/page-template.hbs",
+      minify: false,
     }),
   ],
 };

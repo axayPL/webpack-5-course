@@ -1,20 +1,24 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: {
-    'hello-world-page': './src/hello-world-page.js',
-    'image-page': './src/image-page.js',
-
+    "hello-world-page": "./src/hello-world-page.js",
+    "image-page": "./src/image-page.js",
   },
   output: {
     filename: "[name].[contenthash].js",
     path: path.resolve(__dirname, "./dist"),
     publicPath: "",
-    clean: true
+    clean: true,
   },
-  mode: "none",
+  mode: "development",
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    }
+  },
   module: {
     rules: [
       {
@@ -51,10 +55,8 @@ module.exports = {
       },
       {
         test: /\.hbs$/,
-        use: [
-            'handlebars-loader'
-        ]
-      }
+        use: ["handlebars-loader"],
+      },
     ],
   },
   plugins: [
@@ -62,8 +64,18 @@ module.exports = {
       filename: "[name].[contenthash].css",
     }),
     new HtmlWebpackPlugin({
-        title: 'Webpack',
-        template: 'src/index.hbs'
-    })
+      filename: "hello-world-page.html",
+      chunks: ['hello-world-page'],
+      title: "Hello World!",
+      template: "src/page-template.hbs",
+      minify: false
+    }),
+    new HtmlWebpackPlugin({
+      filename: "image-page.html",
+      chunks: ['image-page'],
+      title: "Image Page",
+      template: "src/page-template.hbs",
+      minify: false
+    }),
   ],
 };
